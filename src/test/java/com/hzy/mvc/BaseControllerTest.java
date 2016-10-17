@@ -25,7 +25,7 @@ import com.google.common.base.Suppliers;
 
 public class BaseControllerTest {
 
-    private String baseUrl = "http://localhost:" + Simulator.UT_PORT + "/cdm-simulator";
+    private String baseUrl = "http://localhost:" + Simulator.UT_PORT + "/simulator";
 
     private RestTemplate restClient = new RestTemplate();
 
@@ -171,7 +171,7 @@ public class BaseControllerTest {
 
         private Map<? extends String, ? extends List<String>> headers;
 
-        public RequestCallbackImpl(Map<? extends String, ? extends List<String>> headers) {
+        RequestCallbackImpl(Map<? extends String, ? extends List<String>> headers) {
             super();
             this.headers = headers;
         }
@@ -188,7 +188,7 @@ public class BaseControllerTest {
     private static class ResponseExtractorImpl<T> implements ResponseExtractor<T> {
         private TypeReference<T> type;
 
-        public ResponseExtractorImpl(TypeReference<T> type) {
+        ResponseExtractorImpl(TypeReference<T> type) {
             super();
             this.type = type;
         }
