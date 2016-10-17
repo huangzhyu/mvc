@@ -9,6 +9,13 @@ public class User
     private String email;
     private String name;
 
+    public User(){}
+
+    public User(User user) {
+        this.email=user.getEmail();
+        this.id=user.getId();
+        this.name=user.getName();
+    }
 
     public String getId()
     {

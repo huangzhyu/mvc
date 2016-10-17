@@ -4,11 +4,7 @@ import com.hzy.mvc.model.User;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +37,41 @@ public class UserService
         users.put(u2.getId(), u2);
     }
 
+    /**
+     * http://127.0.0.1:8080/mvc/user/add?name=1&email=2&id=3,以这种方式结合@RequestBody传递参数是不行的,httpMediaTypeNotSupportedException
+     * @return
+     */
+    @RequestMapping("user/add")
+    @ResponseBody
+    public User add(@RequestBody User user){
+        User u = new User(user);
+        return u;
+    }
+
+    /**
+     * http://127.0.0.1:8080/mvc/user/add3?name=1&email=2&id=3,以这种方式结合@RequestParam传递参数是不行的,missingServletRequestParameterException(Required User parameter 'user' is not present)
+     * @param user
+     * @return
+     */
+    @RequestMapping("user/add3")
+    @ResponseBody
+    public User add3(@RequestParam User user){
+        User u = new User(user);
+        return u;
+    }
+
+    /**
+     * http://127.0.0.1:8080/mvc/user/add2?name=1&email=2&id=3,可以正常绑定参数
+     * @param user
+     * @return
+     */
+    @RequestMapping("user/add2")
+    @ResponseBody
+    public User add2( User user){
+        User u = new User(user);
+        return u;
+    }
+
 
     /**
      * Authenticate a user
@@ -71,7 +102,6 @@ public class UserService
     public Collection<User> listUsers( HttpServletRequest request, HttpServletResponse response, Principal principal )
     {
         //TODO replace this with your real code here.
-
         return users.values();
     }
 
